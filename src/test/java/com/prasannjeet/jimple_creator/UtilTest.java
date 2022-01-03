@@ -1,4 +1,4 @@
-package dev.navids.android_instrumentor;
+package com.prasannjeet.jimple_creator;
 
 import org.junit.jupiter.api.Test;
 

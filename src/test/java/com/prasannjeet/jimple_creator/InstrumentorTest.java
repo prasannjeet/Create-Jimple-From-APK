@@ -1,4 +1,4 @@
-package dev.navids.android_instrumentor;
+package com.prasannjeet.jimple_creator;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,11 +8,8 @@ import soot.*;
 import soot.jimple.JimpleBody;
 import soot.jimple.infoflow.android.manifest.ProcessManifest;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
