@@ -1,0 +1,55 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+
+group 'dev.navids'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://soot-build.cs.uni-paderborn.de/nexus/repository/soot-snapshot/'
+    }
+    maven {
+        url 'https://soot-build.cs.uni-paderborn.de/nexus/repository/soot-release/'
+    }
+}
+
+dependencies {
+    compile('log4j:log4j:1.2.17') {
+        exclude group: 'javax.jms', module: 'jms'
+        exclude group: 'com.sun.jdmk', module: 'jmxtools'
+        exclude group: 'com.sun.jmx', module: 'jmxri'
+    }
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    compile 'de.tud.sse:soot-infoflow:2.7.1'
+    compile 'de.tud.sse:soot-infoflow-android:2.7.1'
+    compile 'de.tud.sse:soot-infoflow-cmd:2.7.1'
+    compile 'de.tud.sse:soot-infoflow-summaries:2.7.1'
+    compile ([group: 'ca.mcgill.sable', name: 'soot', version: '4.1.0'])
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'dev.navids.android_instrumentor.Main'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
